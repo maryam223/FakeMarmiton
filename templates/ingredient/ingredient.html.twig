@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello IngredientController!{% endblock %}
+{% block body %}
+<h1>Ingredient type</h1>
+<p>Name : {{ ingredient.name }}</p>
+<p>Type : {{ ingredient.type }}</p>
+<p>Image : <img src="{{ ingredient.photo }}" alt="ingredient image"></p>
+{% endblock %}

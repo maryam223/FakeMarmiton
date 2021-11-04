@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello IngredientController!{% endblock %}
+{% block body %}
+<h1>Ingredients List</h1>
+<p><a href="{{ path('form_ingredient') }}">Add an ingredient</a></p>
+{% for ingredient in ingredients %}
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Photo</th>
+        </thead>
+        <tbody>
+            <td>{{ ingredient.id }}</td>
+            <td>{{ ingredient.name }}</td>
+            <td>{{ ingredient.type }}</td>
+            <td>{{ ingredient.photo }}</td>
+        </tbody>
+    </table>
+
+    <table>
+        <tbody>
+            <td><a href="{{ path('modify_ingredient', {'id': ingredient.id}) }}">Edit</a></td>        
+        </tbody>
+    </table>
+
+    <table>
+        <tbody>
+            <td><a href="{{ path('delete_ingredient', {'id': ingredient.id}) }}">Delete</a></td>        
+        </tbody>
+    </table>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello RecipeController!{% endblock %}
+{% block body %}
+<h1>Recipes List</h1>
+<p><a href="{{ path('add_recipe') }}">Add a recipe</a></p>
+{% for recipe in recipes %}
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Preparation time</th>
+            <th>Cooking time</th>
+        </thead>
+        <tbody>
+            <td>{{ recipe.name }}</td>
+            <td>{{ recipe.preparationTime }}</td>
+            <td>{{ recipe.cookingTime }}</td>
+        </tbody>
+    </table>
+
+    <td><a href="{{ path('recipe', {'id': recipe.id}) }}">{{ recipe.name }}</a></td>
+
+    <table>
+        <tbody>
+            <td><a href="{{ path('modify_recipe', {'id': recipe.id}) }}">Edit</a></td>
+        </tbody>
+    </table>
+
+    <table>
+        <tbody>
+            <td><a href="{{ path('delete_recipe', {'id': recipe.id}) }}">Delete</a></td>
+        </tbody>
+    </table>
+{% endfor %}
+{% endblock %}

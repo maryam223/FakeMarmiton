@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RecipeController!{% endblock %}
+
+{% block body %}
+	<style>
+	    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+	    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+	</style>
+
+	<h1>{{ form_title }}</h1>
+	{{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.preparation_time) }}
+        {{ form_row(form.cooking_time) }}
+        {{ form_row(form.steps) }}
+        {{ form_row(form.comments) }}
+
+<ul class="ingredient-quantities {{ form.quantities | length > 0 ? '' : 'hidden'}}"
+    data-index="{{ form.quantities|length > 0 ? form.quantities|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.quantities.vars.prototype)|e('html_attr') }}"
+>
+    {% for ingredientQuantity in form.quantities %}
+        <li>{{ form_row(ingredientQuantity.quantity) }}</li>
+    {% endfor %}
+</ul>
+<button type="button" class="add-ingredient-quantities"
+        data-collection-holder-class="ingredient-quantities"
+        onClick="addToCollection('.ingredient-quantities')">
+    Add an ingredient quantity
+</button>
+
+{{ form_end(form) }}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function addToCollection(which) {
+            const collectionHolder = document.querySelector(which);
+            const item = document.createElement('li');
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.index
+                );
+            collectionHolder.classList.remove('hidden');
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.index++;
+        }
+    </script>
+{% endblock %}
+
+
+
+
